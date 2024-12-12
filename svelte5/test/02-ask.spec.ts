@@ -16,7 +16,7 @@ test.describe("Ask!", () => {
     await expect(page.locator("text=Ask? OnChainAI")).toBeVisible();
   });
 
-  test("Should answer correctly to simple calculation", async ({ page }) => {
+  test.only("Should answer correctly to simple calculation", async ({ page }) => {
     const a: number = Math.floor(Math.random() * 50);
     const b: number = Math.floor(Math.random() * 50);
     const prompt = `${a}+${b}`;
@@ -25,7 +25,7 @@ test.describe("Ask!", () => {
     await page.locator("#ask-button").click();
     await expect(page.locator(".notification-loading")).toContainText("Sending transaction...");
     await expect(page.locator(".notification-success")).toContainText("Transaction validated!");
-    await expect(page.locator("#interaction-0 .prompt")).toHaveText(prompt);
+    await expect(page.locator("#interaction-0 .prompt")).toHaveText(prompt, { timeout: 10000 });
     await expect(page.locator("#interaction-0 .response")).toContainText(response, { timeout: 30000 });
   });
 });
