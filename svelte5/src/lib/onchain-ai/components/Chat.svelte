@@ -3,19 +3,22 @@
   import { Interaction } from "$lib/onchain-ai/components";
   import { Account } from "$lib/wagmi/classes";
 
+  const account = new Account();
+  const sender = $derived(account.address);
+
   const limit = 3;
   const interactions = new Interactions({ limit });
   const noMore = $derived(interactions.count >= interactions.max);
   const more = () => (interactions.limit += limit);
 
   const disabled = false;
+  // const disabled = $derived(all && !account.address);
+
   const toggleAll = () => {};
   const all = true;
   $inspect("interactions:", interactions);
 
-  // const account = new Account();
   // const all = $derived(!interactions.sender);
-  // const disabled = $derived(all && !account.address);
   // const toggleAll = () => (interactions.sender = all ? account.address : null);
 
   // const missingResponse = $derived(!interactions.last.response);
